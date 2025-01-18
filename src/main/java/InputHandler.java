@@ -1,4 +1,7 @@
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,7 +13,7 @@ public class InputHandler {
     }
 
     Optional<String> action(String[] cmd) {
-        switch(cmd[0]) {
+        switch(cmd[0].toLowerCase()) {
         case "list":
             return this.multiLine(this.tasks.stream()
                 .map(t -> (this.tasks.indexOf(t) + 1)  + ". " + t.toString())
@@ -39,14 +42,25 @@ public class InputHandler {
             } catch (NumberFormatException e) {
                 return Optional.of("Error: Please provide number only.");
             }
-        default:
-            Task task = new Task(String.join(" ", cmd));
+        case "todo":
+        case "deadline":
+        case "event":
+            Task task;
+            if (cmd[0].toLowerCase().equals("todo")) {
+                task = new Todo(String.join(" ", Arrays.copyOfRange(cmd, 1, cmd.length)));
+            } else if (cmd[0].toLowerCase().equals("deadline")) {
+                task = Deadline.of(String.join(" ", Arrays.copyOfRange(cmd, 1, cmd.length)));
+            } else {
+                task = Event.of(String.join(" ", Arrays.copyOfRange(cmd, 1, cmd.length)));
+            }
             this.tasks.add(task);
             if (this.tasks.size() >= 10) {
                 return multiLine(List.of("Wow you have so many things to do!",
                     "added: " + task));
             }
             return Optional.of("added: " + task);
+        default:
+            return Optional.of("Sorry it is too complicated.🥺");
         }
     }
 

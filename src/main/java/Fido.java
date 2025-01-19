@@ -39,7 +39,16 @@ public class Fido {
     }
 
     private static String hello() {
-        return String.format("Beep...Hello! I am %s. What can I do for you", CHATBOT_NAME);
+        //return String.format("Beep...Hello! I am %s. What can I do for you", CHATBOT_NAME);
+        return "Hi, I am\n" +
+            " ________ ___  ________  ________\n" + 
+            "|\\  _____\\\\  \\|\\   ___ \\|\\   __  \\\n" +
+            "\\ \\  \\__/\\ \\  \\ \\  \\_|\\ \\ \\  \\|\\  \\\n" +
+            " \\ \\   __\\\\ \\  \\ \\  \\ \\\\ \\ \\  \\\\\\  \\\n" +
+            "  \\ \\  \\_| \\ \\  \\ \\  \\_\\\\ \\ \\  \\\\\\  \\\n" +
+            "   \\ \\__\\   \\ \\__\\ \\_______\\ \\_______\\\n" +
+            "    \\|__|    \\|__|\\|_______|\\|_______|\n" +
+            "What can I do for you?";
     }
 
     private static String bye() {

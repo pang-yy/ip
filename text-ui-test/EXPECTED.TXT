@@ -1,5 +1,13 @@
     ____________________________________________________________
-    Beep...Hello! I am Fido. What can I do for you
+    Hi, I am
+     ________ ___  ________  ________
+    |\  _____\\  \|\   ___ \|\   __  \
+    \ \  \__/\ \  \ \  \_|\ \ \  \|\  \
+     \ \   __\\ \  \ \  \ \\ \ \  \\\  \
+      \ \  \_| \ \  \ \  \_\\ \ \  \\\  \
+       \ \__\   \ \__\ \_______\ \_______\
+        \|__|    \|__|\|_______|\|_______|
+    What can I do for you?
     ____________________________________________________________
     ____________________________________________________________
     added: [T][ ] read novel
@@ -28,23 +36,26 @@
       [D][X] complete CS2103T assignment (by: tonight)
     ____________________________________________________________
     ____________________________________________________________
+    Following task has been removed.
+      [D][X] complete CS2103T assignment (by: tonight)
+    ____________________________________________________________
+    ____________________________________________________________
     This task has been marked as done.
-      [D][X] complete survey (by: next Monday 2 pm)
+      [E][X] career fair (from: Jan 22nd Wednesday to: Jan 23rd Thursday)
     ____________________________________________________________
     ____________________________________________________________
     This task has been marked as done.
       [T][X] read novel
     ____________________________________________________________
     ____________________________________________________________
-    This task has been unmarked
-      [D][ ] complete survey (by: next Monday 2 pm)
+    This task has been unmarked.
+      [E][ ] career fair (from: Jan 22nd Wednesday to: Jan 23rd Thursday)
     ____________________________________________________________
     ____________________________________________________________
     1. [T][X] read novel
-    2. [D][X] complete CS2103T assignment (by: tonight)
-    3. [D][ ] complete CS2106 assignment (by: this Sunday)
-    4. [D][ ] complete survey (by: next Monday 2 pm)
-    5. [E][ ] career fair (from: Jan 22nd Wednesday to: Jan 23rd Thursday)
+    2. [D][ ] complete CS2106 assignment (by: this Sunday)
+    3. [D][ ] complete survey (by: next Monday 2 pm)
+    4. [E][ ] career fair (from: Jan 22nd Wednesday to: Jan 23rd Thursday)
     ____________________________________________________________
     ____________________________________________________________
     Have a nice day!

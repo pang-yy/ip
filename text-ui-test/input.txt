@@ -5,6 +5,7 @@ deadline complete survey /by next Monday 2 pm
 event career fair /from Jan 22nd Wednesday /to Jan 23rd Thursday
 list
 mark 2
+delete 2
 mark 4
 mark 1
 unmark 4

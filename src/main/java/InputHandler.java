@@ -83,6 +83,9 @@ public class InputHandler {
             "deadline <task> /by <date>" + "\n" +
             "event <task> /from <date> /to <date>" + "\n" +
             "list" + "\n" +
+            "mark <task index>" + "\n" +
+            "unmark <task index>" + "\n" +
+            "delete <task index>" + "\n" +
             "bye" + "\n" +
             "help";
     }

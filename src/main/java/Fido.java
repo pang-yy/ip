@@ -19,7 +19,7 @@ public class Fido {
             .takeWhile(line -> !line.equalsIgnoreCase("bye"))
             .forEach(line -> {
                 printMessage(DIVIDER);
-                printMessage(iHandler.action(line.split(" ")).map(x -> x).orElse(""));
+                printMessage(iHandler.action(line.split(" ")));
                 printMessage(DIVIDER);
             });
         sc.close();
@@ -30,7 +30,8 @@ public class Fido {
     }
 
     private static void printMessage(String out) {
-        System.out.println(" ".repeat(OUTPUT_INDENT_LEVEL) + out);
+        System.out.println(" ".repeat(OUTPUT_INDENT_LEVEL) +
+            out.trim().replaceAll("\n", "\n" + " ".repeat(OUTPUT_INDENT_LEVEL)));
     }
 
     private static String hello() {

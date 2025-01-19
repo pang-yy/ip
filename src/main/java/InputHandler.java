@@ -9,7 +9,7 @@ public class InputHandler {
         this.tasks = new ArrayList<>();
     }
 
-    String action(String[] cmd) {
+    String action(String[] cmd) throws FidoException {
         switch(cmd[0].toLowerCase()) {
         case "list":
             return this.tasks.stream()
@@ -23,9 +23,11 @@ public class InputHandler {
                 return "This task has been marked as done.\n" +
                     "  " + newTask;
             } catch (IndexOutOfBoundsException e) {
-                return "Error: Please provide a valid number.";
+                throw new FidoException(FidoException.ErrorType.NOT_VALID_INDEX);
+                //return "Error: Please provide a valid number.";
             } catch (NumberFormatException e) {
-                return "Error: Please provide number only.";
+                throw new FidoException(FidoException.ErrorType.NOT_VALID_NUMBER);
+                //return "Error: Please provide number only.";
             }
         case "unmark":
             try {
@@ -42,6 +44,9 @@ public class InputHandler {
         case "todo":
         case "deadline":
         case "event":
+            if (cmd.length < 2) {
+                throw new FidoException(FidoException.ErrorType.EMPTY_DESCRIPTION);
+            }
             Task task;
             if (cmd[0].toLowerCase().equals("todo")) {
                 task = new Todo(String.join(" ", Arrays.copyOfRange(cmd, 1, cmd.length)));

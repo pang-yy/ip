@@ -11,8 +11,13 @@ public class Deadline extends Task {
         this.date = date;
     }
 
-    static Deadline of(String rawInput) {
+    static Deadline of(String rawInput) throws FidoException {
         String[] ins = rawInput.split("/by");
+        if (ins.length == 0) {
+            throw new FidoException(FidoException.ErrorType.DEADLINE_EMPTY_DESCRIPTION);
+        } else if (ins.length == 1) {
+            throw new FidoException(FidoException.ErrorType.DEADLINE_EMPTY_DATE);
+        }
         return new Deadline(ins[0].trim(), ins[1].trim());
     }
     

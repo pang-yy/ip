@@ -14,8 +14,15 @@ public class Event extends Task {
         this.endDate = endDate;
     }
 
-    static Event of(String rawInput) {
+    static Event of(String rawInput) throws FidoException {
         String[] ins = rawInput.split("(/from|/to)");
+        if (ins.length == 0) {
+            throw new FidoException(FidoException.ErrorType.EVENT_EMPTY_DESCRIPTION);
+        } else if (ins.length == 1) {
+            throw new FidoException(FidoException.ErrorType.EVENT_EMPTY_DATE);
+        } else if (ins.length < 3) {
+            throw new FidoException(FidoException.ErrorType.EVENT_MISSING_DATE);
+        }
         return new Event(ins[0].trim(), ins[1].trim(), ins[2].trim());
     }
     

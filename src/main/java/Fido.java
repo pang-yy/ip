@@ -19,7 +19,11 @@ public class Fido {
             .takeWhile(line -> !line.equalsIgnoreCase("bye"))
             .forEach(line -> {
                 printMessage(DIVIDER);
-                printMessage(iHandler.action(line.split(" ")));
+                try {
+                    printMessage(iHandler.action(line.split(" ")));
+                } catch (FidoException e) {
+                    printMessage(e.getMessage());
+                }
                 printMessage(DIVIDER);
             });
         sc.close();

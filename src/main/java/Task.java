@@ -1,6 +1,6 @@
 public class Task {
-    protected final String name;
-    protected final boolean isDone;
+    private final String name;
+    private final boolean isDone;
 
     Task(String name) {
         this.name = name;
@@ -10,6 +10,10 @@ public class Task {
     protected Task(String name, boolean isDone) {
         this.name = name;
         this.isDone = isDone;
+    }
+
+    protected String getName() {
+        return this.name;
     }
 
     Task mark() {

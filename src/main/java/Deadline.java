@@ -23,12 +23,12 @@ public class Deadline extends Task {
     
     @Override
     Deadline mark() {
-        return new Deadline(super.name, true, this.date);
+        return new Deadline(super.getName(), true, this.date);
     }
     
     @Override
     Deadline unmark() {
-        return new Deadline(super.name, false, this.date);
+        return new Deadline(super.getName(), false, this.date);
     }
     
     @Override

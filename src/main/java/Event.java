@@ -28,12 +28,12 @@ public class Event extends Task {
     
     @Override
     Event mark() {
-        return new Event(super.name, true, this.startDate, this.endDate);
+        return new Event(super.getName(), true, this.startDate, this.endDate);
     }
     
     @Override
     Event unmark() {
-        return new Event(super.name, false, this.startDate, this.endDate);
+        return new Event(super.getName(), false, this.startDate, this.endDate);
     }
     
     @Override

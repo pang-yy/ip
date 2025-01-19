@@ -74,7 +74,7 @@ public class InputHandler {
             return this.menu();
         default:
             return "Sorry it is too complicated.🥺\n" +
-                "Want to see what can I do? Try `help`.";
+                "Want to see what I can do? Try `help`.";
         }
     }
 

@@ -10,12 +10,12 @@ public class Todo extends Task {
     
     @Override
     Todo mark() {
-        return new Todo(super.name, true);
+        return new Todo(super.getName(), true);
     }
     
     @Override
     Todo unmark() {
-        return new Todo(super.name, false);
+        return new Todo(super.getName(), false);
     }
    
     @Override

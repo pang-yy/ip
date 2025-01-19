@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private final String name;
     private final boolean isDone;
 
@@ -16,13 +16,9 @@ public class Task {
         return this.name;
     }
 
-    Task mark() {
-        return new Task(this.name, true);
-    }
-    
-    Task unmark() {
-        return new Task(this.name, false);
-    }
+    abstract Task mark();
+   
+    abstract Task unmark();
 
     public String toString() {
         if (this.isDone) {

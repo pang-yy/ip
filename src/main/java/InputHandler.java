@@ -24,10 +24,8 @@ public class InputHandler {
                     "  " + newTask;
             } catch (IndexOutOfBoundsException e) {
                 throw new FidoException(FidoException.ErrorType.NOT_VALID_INDEX);
-                //return "Error: Please provide a valid number.";
             } catch (NumberFormatException e) {
                 throw new FidoException(FidoException.ErrorType.NOT_VALID_NUMBER);
-                //return "Error: Please provide number only.";
             }
         case "unmark":
             try {
@@ -61,6 +59,17 @@ public class InputHandler {
                     "added: " + task;
             }
             return "added: " + task;
+        case "delete":
+            try {
+                int idx = Integer.parseInt(cmd[1]) - 1;
+                Task deletedTask = this.tasks.remove(idx);
+                return "Following task has been removed.\n" +
+                    "  " + deletedTask;
+            } catch (IndexOutOfBoundsException e) {
+                throw new FidoException(FidoException.ErrorType.NOT_VALID_INDEX);
+            } catch (NumberFormatException e) {
+                throw new FidoException(FidoException.ErrorType.NOT_VALID_NUMBER);
+            }
         case "help":
             return this.menu();
         default:

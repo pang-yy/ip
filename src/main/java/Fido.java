@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Fido {
     private final static String CHATBOT_NAME = "Fido";
     private final static String DIVIDER = "_".repeat(60);
-    public final static int OUTPUT_INDENT_LEVEL = 4;
+    private final static int OUTPUT_INDENT_LEVEL = 4;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);

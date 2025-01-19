@@ -79,7 +79,8 @@ public class InputHandler {
     }
 
     private String menu() {
-        return "todo <task>" + "\n" +
+        return "Here's the list of commands:\n" +
+            "todo <task>" + "\n" +
             "deadline <task> /by <date>" + "\n" +
             "event <task> /from <date> /to <date>" + "\n" +
             "list" + "\n" +

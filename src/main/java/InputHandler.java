@@ -1,12 +1,16 @@
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class InputHandler {
     private List<Task> tasks;
+    private final Path filepath;
 
-    InputHandler() {
-        this.tasks = new ArrayList<>();
+    InputHandler() throws IOException {
+        this.filepath = Storage.init("data/data.txt");
+        this.tasks = new ArrayList<>(Parser.parseFromFile(Storage.readFromFile(this.filepath)));
     }
 
     String action(String[] inputs) throws FidoException {
@@ -24,15 +28,18 @@ public class InputHandler {
                 if (command.equals("mark")) {
                     Task newTask = this.tasks.get(idx).mark();
                     this.tasks.set(idx, newTask);
+                    Storage.writeToFile(this.filepath, Parser.parseToFile(this.tasks));
                     return "This task has been marked as done.\n" +
                         "  " + newTask;
                 } else if (command.equals("unmark")) {
                     Task newTask = this.tasks.get(idx).unmark();
                     this.tasks.set(idx, newTask);
+                    Storage.writeToFile(this.filepath, Parser.parseToFile(this.tasks));
                     return "This task has been unmarked.\n" +
                         "  " + newTask;
                 } else { // delete
                     Task deletedTask = this.tasks.remove(idx);
+                    Storage.writeToFile(this.filepath, Parser.parseToFile(this.tasks));
                     return "Following task has been removed.\n" +
                         "  " + deletedTask;
                 }
@@ -40,6 +47,8 @@ public class InputHandler {
                 throw new FidoException(FidoException.ErrorType.NOT_VALID_INDEX);
             } catch (NumberFormatException e) {
                 throw new FidoException(FidoException.ErrorType.NOT_VALID_NUMBER);
+            } catch (IOException e) {
+                throw new FidoException(FidoException.ErrorType.NOT_VALID_FILEPATH);
             }
         case "todo":
         case "deadline":
@@ -56,6 +65,11 @@ public class InputHandler {
                 task = Event.of(String.join(" ", Arrays.copyOfRange(inputs, 1, inputs.length)));
             }
             this.tasks.add(task);
+            try {
+                Storage.writeToFile(this.filepath, Parser.parseToFile(this.tasks));
+            } catch (IOException e) {
+                throw new FidoException(FidoException.ErrorType.NOT_VALID_FILEPATH);
+            }
             if (this.tasks.size() >= 10) {
                 return "Wow you have so many things to do!\n" + 
                     "added: " + task;

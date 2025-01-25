@@ -20,6 +20,12 @@ public class Deadline extends Task {
         }
         return new Deadline(ins[0].trim(), ins[1].trim());
     }
+
+    @Override
+    String fileFormat() {
+        return String.format("D%s%s%s%s%s%s",
+            Parser.DIVIDER, super.getIsDone(), Parser.DIVIDER, super.getName(), Parser.DIVIDER, this.date);
+    }
     
     @Override
     Deadline mark() {

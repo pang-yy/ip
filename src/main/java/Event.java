@@ -27,6 +27,13 @@ public class Event extends Task {
     }
     
     @Override
+    String fileFormat() {
+        return String.format("E%s%s%s%s%s%s%s%s",
+            Parser.DIVIDER, super.getIsDone(), Parser.DIVIDER, super.getName(), 
+            Parser.DIVIDER, this.startDate, Parser.DIVIDER, this.endDate);
+    }
+    
+    @Override
     Event mark() {
         return new Event(super.getName(), true, this.startDate, this.endDate);
     }

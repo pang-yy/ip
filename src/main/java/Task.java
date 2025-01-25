@@ -16,6 +16,12 @@ public abstract class Task {
         return this.name;
     }
 
+    protected String getIsDone() {
+        return this.isDone ? "1" : "0";
+    }
+
+    abstract String fileFormat();
+
     abstract Task mark();
    
     abstract Task unmark();

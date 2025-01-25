@@ -7,7 +7,9 @@ public class FidoException extends Exception {
         DEADLINE_EMPTY_DATE,
         EVENT_EMPTY_DESCRIPTION,
         EVENT_EMPTY_DATE,
-        EVENT_MISSING_DATE
+        EVENT_MISSING_DATE,
+
+        NOT_VALID_FILEPATH
     }
 
     private final ErrorType eType;
@@ -35,6 +37,8 @@ public class FidoException extends Exception {
             return "Error: No date provided.\nUsage: event <task> /from <date> /to <date>";
         case EVENT_MISSING_DATE:
             return "Error: Must provide start and end date.\nUsage: event <task> /from <date> /to <date>";
+        case NOT_VALID_FILEPATH:
+            return "Error: IOException";
         default:
             return "Unknown error encountered!";
         }

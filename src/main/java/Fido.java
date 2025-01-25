@@ -15,12 +15,11 @@ public class Fido {
         
         sc.useDelimiter("\n")
             .tokens()
-            .map(line -> line.trim())
-            .takeWhile(line -> !line.equalsIgnoreCase("bye"))
+            .takeWhile(line -> !line.trim().equalsIgnoreCase("bye"))
             .forEach(line -> {
                 printMessage(DIVIDER);
                 try {
-                    printMessage(iHandler.action(line.split(" ")));
+                    printMessage(iHandler.action(line.trim().split(" ")));
                 } catch (FidoException e) {
                     printMessage(e.getMessage());
                 }

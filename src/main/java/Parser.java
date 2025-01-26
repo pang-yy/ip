@@ -1,8 +1,10 @@
 import java.util.List;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 public class Parser {
     public static final String DIVIDER = ";;";
+    public static final DateTimeFormatter DATE_OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
     public static String parseToFile(List<Task> tasks) {
         return tasks.stream()
@@ -17,7 +19,7 @@ public class Parser {
      * @param content The content read from file.
      * @return List of {@code Task} objects.
      */
-    public static List<Task> parseFromFile(String content) {
+    public static List<Task> parseFromFile(String content) throws FidoException {
         if (content.isEmpty()) {
             return List.<Task>of();
         }

@@ -8,9 +8,15 @@ public class InputHandler {
     private List<Task> tasks;
     private final Path filepath;
 
-    InputHandler() throws IOException {
-        this.filepath = Storage.init("data/data.txt");
-        this.tasks = new ArrayList<>(Parser.parseFromFile(Storage.readFromFile(this.filepath)));
+    InputHandler() throws FidoException, IOException {
+        try {
+            this.filepath = Storage.init("data/data.txt");
+            this.tasks = new ArrayList<>(Parser.parseFromFile(Storage.readFromFile(this.filepath)));
+        } catch (IOException e) {
+            throw e;
+        } catch (FidoException e) {
+            throw e;
+        }
     }
 
     String action(String[] inputs) throws FidoException {

@@ -9,7 +9,8 @@ public class FidoException extends Exception {
         EVENT_EMPTY_DATE,
         EVENT_MISSING_DATE,
 
-        NOT_VALID_FILEPATH
+        NOT_VALID_FILEPATH,
+        NOT_VALID_DATE
     }
 
     private final ErrorType eType;
@@ -39,6 +40,8 @@ public class FidoException extends Exception {
             return "Error: Must provide start and end date.\nUsage: event <task> /from <date> /to <date>";
         case NOT_VALID_FILEPATH:
             return "Error: IOException";
+        case NOT_VALID_DATE:
+            return "Error: Invalid date format.\nFormat: YYYY-MM-DD";
         default:
             return "Unknown error encountered!";
         }

@@ -6,7 +6,7 @@ public class Parser {
     public static final String DIVIDER = ";;";
     public static final DateTimeFormatter DATE_OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
-    public static String parseToFile(List<Task> tasks) {
+    static String parseToFile(List<Task> tasks) {
         return tasks.stream()
             .map(task -> task.fileFormat())
             .reduce("", (x, y) -> x + "\n" + y)
@@ -14,12 +14,12 @@ public class Parser {
     }
 
     /**
-     * Parse file content.
+     * Parse file content into list of {@code Task}.
      *
      * @param content The content read from file.
      * @return List of {@code Task} objects.
      */
-    public static List<Task> parseFromFile(String content) throws FidoException {
+    static List<Task> parseFromFile(String content) throws FidoException {
         if (content.isEmpty()) {
             return List.<Task>of();
         }

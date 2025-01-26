@@ -8,9 +8,11 @@ public class FidoException extends Exception {
         EVENT_EMPTY_DESCRIPTION,
         EVENT_EMPTY_DATE,
         EVENT_MISSING_DATE,
+        NOT_VALID_DATE,
 
         NOT_VALID_FILEPATH,
-        NOT_VALID_DATE
+        FILE_READ_ERROR,
+        FILE_WRITE_ERROR,
     }
 
     private final ErrorType eType;
@@ -38,10 +40,14 @@ public class FidoException extends Exception {
             return "Error: No date provided.\nUsage: event <task> /from <date> /to <date>";
         case EVENT_MISSING_DATE:
             return "Error: Must provide start and end date.\nUsage: event <task> /from <date> /to <date>";
-        case NOT_VALID_FILEPATH:
-            return "Error: IOException";
         case NOT_VALID_DATE:
             return "Error: Invalid date format.\nFormat: YYYY-MM-DD";
+        case NOT_VALID_FILEPATH:
+            return "Error: IOException";
+        case FILE_READ_ERROR:
+            return "Error: Failed to read from task file.";
+        case FILE_WRITE_ERROR:
+            return "Error: Failed to write to task file.";
         default:
             return "Unknown error encountered!";
         }

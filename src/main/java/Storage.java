@@ -6,6 +6,11 @@ import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 
 public class Storage {
+    private final Path filePath;
+
+    Storage(String dirName) throws IOException {
+        this.filePath = Storage.init(dirName);
+    }
 
     /**
      * Ensures the given file path and its parent directories exist
@@ -16,7 +21,7 @@ public class Storage {
      * @param dirName Relative file path to be checked.
      * @return The path to the file.
      */
-    public static Path init(String dirName) throws IOException {
+    static Path init(String dirName) throws IOException {
         String[] dirArray = dirName.split("/");
         String[] parentDir = Arrays.copyOfRange(dirArray, 0, dirArray.length - 1);
         try {
@@ -27,15 +32,27 @@ public class Storage {
         }
     }
 
-    public static String readFromFile(Path filePath) throws IOException {
-        return Files.readString(filePath);
+    String readFromFile() throws FidoException {
+        try {
+            return Files.readString(this.filePath);
+        } catch (IOException e) {
+            throw new FidoException(FidoException.ErrorType.FILE_READ_ERROR);
+        }
     }
 
-    public static void appendToFile(Path filePath, String line) throws IOException {
-        Files.write(filePath, ("\n" + line).getBytes(), StandardOpenOption.APPEND);
+    void appendToFile(String line) throws FidoException {
+        try {
+            Files.write(this.filePath, ("\n" + line).getBytes(), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            throw new FidoException(FidoException.ErrorType.FILE_WRITE_ERROR);
+        }
     }
 
-    public static void writeToFile(Path filePath, String lines) throws IOException {
-        Files.write(filePath, lines.getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
+    void writeToFile(String lines) throws FidoException {
+        try {
+            Files.write(this.filePath, lines.getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
+        } catch (IOException e) {
+            throw new FidoException(FidoException.ErrorType.FILE_WRITE_ERROR);
+        }
     }
 }

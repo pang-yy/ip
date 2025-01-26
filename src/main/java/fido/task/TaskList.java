@@ -1,12 +1,18 @@
-import java.util.ArrayList;
+package fido.task;
+
+import fido.storage.Parser;
+import fido.storage.Storage;
+import fido.exception.FidoException;
+
 import java.util.Arrays;
 import java.util.List;
+import java.util.ArrayList;
 
 public class TaskList {
     private List<Task> tasks;
     private final Storage storage;
 
-    TaskList(Storage storage) throws FidoException {
+    public TaskList(Storage storage) throws FidoException {
         try {
             this.storage = storage;
             this.tasks = new ArrayList<>(Parser.parseFromFile(this.storage.readFromFile()));
@@ -15,7 +21,7 @@ public class TaskList {
         }
     }
 
-    String action(String[] inputs) throws FidoException {
+    public String action(String[] inputs) throws FidoException {
         String command = inputs[0].toLowerCase();
         switch(command) {
         case "list":
@@ -28,8 +34,8 @@ public class TaskList {
                 .map(t -> (this.tasks.indexOf(t) + 1) + ". " + t.toString())
                 .reduce("Here's the list of task that is due or will be due in 1 day:", 
                     (x, y) -> x + "\n" + y);
-        case "mark":
-        case "unmark":
+        case "mark": //Fallthrough
+        case "unmark": //Fallthrough
         case "delete":
             try {
                 int idx = Integer.parseInt(inputs[1]) - 1;
@@ -56,8 +62,8 @@ public class TaskList {
             } catch (NumberFormatException e) {
                 throw new FidoException(FidoException.ErrorType.NOT_VALID_NUMBER);
             }
-        case "todo":
-        case "deadline":
+        case "todo": //Fallthrough
+        case "deadline": //Fallthrough
         case "event":
             if (inputs.length < 2) {
                 throw new FidoException(FidoException.ErrorType.EMPTY_DESCRIPTION);

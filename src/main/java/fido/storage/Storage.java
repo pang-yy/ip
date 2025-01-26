@@ -1,14 +1,20 @@
+package fido.storage;
+
+import fido.exception.FidoException;
+
+import java.util.Arrays;
+
 import java.io.IOException;
+
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.util.Arrays;
 
 public class Storage {
     private final Path filePath;
 
-    Storage(String dirName) throws IOException {
+    public Storage(String dirName) throws IOException {
         this.filePath = Storage.init(dirName);
     }
 
@@ -21,7 +27,7 @@ public class Storage {
      * @param dirName Relative file path to be checked.
      * @return The path to the file.
      */
-    static Path init(String dirName) throws IOException {
+    public static Path init(String dirName) throws IOException {
         String[] dirArray = dirName.split("/");
         String[] parentDir = Arrays.copyOfRange(dirArray, 0, dirArray.length - 1);
         try {
@@ -32,7 +38,7 @@ public class Storage {
         }
     }
 
-    String readFromFile() throws FidoException {
+    public String readFromFile() throws FidoException {
         try {
             return Files.readString(this.filePath);
         } catch (IOException e) {
@@ -40,7 +46,7 @@ public class Storage {
         }
     }
 
-    void appendToFile(String line) throws FidoException {
+    public void appendToFile(String line) throws FidoException {
         try {
             Files.write(this.filePath, ("\n" + line).getBytes(), StandardOpenOption.APPEND);
         } catch (IOException e) {
@@ -48,7 +54,7 @@ public class Storage {
         }
     }
 
-    void writeToFile(String lines) throws FidoException {
+    public void writeToFile(String lines) throws FidoException {
         try {
             Files.write(this.filePath, lines.getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
         } catch (IOException e) {

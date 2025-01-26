@@ -1,3 +1,10 @@
+package fido;
+
+import fido.ui.UI;
+import fido.storage.Storage;
+import fido.task.TaskList;
+import fido.exception.FidoException;
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -14,12 +21,12 @@ public class Fido {
         }
     }
 
-    Fido(String dirName) throws IOException {
+    public Fido(String dirName) throws IOException {
         this.ui = new UI();
         this.storage = new Storage(dirName);
     }
 
-    void run() {
+    public void run() {
         Scanner sc = new Scanner(System.in);
         this.ui.hello();
         try {

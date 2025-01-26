@@ -1,19 +1,23 @@
+package fido.task;
+
+import fido.storage.Parser;
+import fido.exception.FidoException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
-    //private final String date;
     private final LocalDate date;
 
     /**
      * Expect date format: MMM dd yyyy
      */
-    Deadline(String name, String date) {
+    public Deadline(String name, String date) {
         super(name);
         this.date = LocalDate.parse(date, Parser.DATE_OUTPUT_FORMAT);
     }
 
-    Deadline(String name, LocalDate date) {
+    public Deadline(String name, LocalDate date) {
         super(name);
         this.date = date;
     }
@@ -26,7 +30,7 @@ public class Deadline extends Task {
     /**
      * Expect date format: YYYY-MM-DD
      */
-    static Deadline of(String rawInput) throws FidoException {
+    public static Deadline of(String rawInput) throws FidoException {
         String[] ins = rawInput.split("/by");
         if (ins.length == 0) {
             throw new FidoException(FidoException.ErrorType.DEADLINE_EMPTY_DESCRIPTION);
@@ -51,24 +55,24 @@ public class Deadline extends Task {
      *         {@code false} otherwise.
      */
     @Override
-    boolean isDue() {
+    public boolean isDue() {
         return !super.getIsDone() && !LocalDate.now().isBefore(this.date.minusDays(1));
     }
 
     @Override
-    String fileFormat() {
+    public String fileFormat() {
         return String.format("D%s%s%s%s%s%s",
             Parser.DIVIDER, super.getIsDone(), Parser.DIVIDER, super.getName(), 
             Parser.DIVIDER, this.date.format(Parser.DATE_OUTPUT_FORMAT));
     }
     
     @Override
-    Deadline mark() {
+    public Deadline mark() {
         return new Deadline(super.getName(), true, this.date);
     }
     
     @Override
-    Deadline unmark() {
+    public Deadline unmark() {
         return new Deadline(super.getName(), false, this.date);
     }
     

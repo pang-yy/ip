@@ -1,6 +1,10 @@
+package fido.task;
+
+import fido.storage.Parser;
+
 public class Todo extends Task {
     
-    Todo(String name) {
+    public Todo(String name) {
         super(name);
     }
 
@@ -17,23 +21,23 @@ public class Todo extends Task {
      * @return {@code false} always.
      */
     @Override
-    boolean isDue() {
+    public boolean isDue() {
         return false;
     }
 
     @Override
-    String fileFormat() {
+    public String fileFormat() {
         return String.format("T%s%s%s%s",
             Parser.DIVIDER, super.getIsDone(), Parser.DIVIDER, super.getName());
     }
     
     @Override
-    Todo mark() {
+    public Todo mark() {
         return new Todo(super.getName(), true);
     }
     
     @Override
-    Todo unmark() {
+    public Todo unmark() {
         return new Todo(super.getName(), false);
     }
    

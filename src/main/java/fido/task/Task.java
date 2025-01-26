@@ -1,8 +1,10 @@
+package fido.task;
+
 public abstract class Task {
     private final String name;
     private final boolean isDone;
 
-    Task(String name) {
+    public Task(String name) {
         this.name = name;
         this.isDone = false;
     }
@@ -20,13 +22,13 @@ public abstract class Task {
         return this.isDone;
     }
 
-    abstract boolean isDue();
+    public abstract boolean isDue();
 
-    abstract String fileFormat();
+    public abstract String fileFormat();
 
-    abstract Task mark();
+    public abstract Task mark();
    
-    abstract Task unmark();
+    public abstract Task unmark();
 
     public String toString() {
         if (this.isDone) {

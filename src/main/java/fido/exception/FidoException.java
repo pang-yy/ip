@@ -1,3 +1,5 @@
+package fido.exception;
+
 public class FidoException extends Exception {
     public enum ErrorType {
         NOT_VALID_INDEX,
@@ -17,7 +19,7 @@ public class FidoException extends Exception {
 
     private final ErrorType eType;
 
-    FidoException(ErrorType eType) {
+    public FidoException(ErrorType eType) {
         this.eType = eType;
     }
 

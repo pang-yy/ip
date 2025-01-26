@@ -1,3 +1,11 @@
+package fido.storage;
+
+import fido.task.Task;
+import fido.task.Todo;
+import fido.task.Event;
+import fido.task.Deadline;
+import fido.exception.FidoException;
+
 import java.util.List;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -6,7 +14,7 @@ public class Parser {
     public static final String DIVIDER = ";;";
     public static final DateTimeFormatter DATE_OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
-    static String parseToFile(List<Task> tasks) {
+    public static String parseToFile(List<Task> tasks) {
         return tasks.stream()
             .map(task -> task.fileFormat())
             .reduce("", (x, y) -> x + "\n" + y)
@@ -19,7 +27,7 @@ public class Parser {
      * @param content The content read from file.
      * @return List of {@code Task} objects.
      */
-    static List<Task> parseFromFile(String content) throws FidoException {
+    public static List<Task> parseFromFile(String content) throws FidoException {
         if (content.isEmpty()) {
             return List.<Task>of();
         }

@@ -26,6 +26,8 @@ public class Fido {
             printMessage(bye());
         } catch (IOException e) {
             printMessage(e.getMessage());
+        } catch (FidoException e) {
+            printMessage(e.getMessage());
         }
     }
 

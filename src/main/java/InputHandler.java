@@ -8,9 +8,15 @@ public class InputHandler {
     private List<Task> tasks;
     private final Path filepath;
 
-    InputHandler() throws IOException {
-        this.filepath = Storage.init("data/tasks.txt");
-        this.tasks = new ArrayList<>(Parser.parseFromFile(Storage.readFromFile(this.filepath)));
+    InputHandler() throws FidoException, IOException {
+        try {
+            this.filepath = Storage.init("data/data.txt");
+            this.tasks = new ArrayList<>(Parser.parseFromFile(Storage.readFromFile(this.filepath)));
+        } catch (IOException e) {
+            throw e;
+        } catch (FidoException e) {
+            throw e;
+        }
     }
 
     String action(String[] inputs) throws FidoException {
@@ -20,6 +26,12 @@ public class InputHandler {
             return this.tasks.stream()
                 .map(t -> (this.tasks.indexOf(t) + 1) + ". " + t.toString())
                 .reduce("", (x, y) -> x + "\n" + y);
+        case "due":
+            return this.tasks.stream()
+                .filter(t -> t.isDue())
+                .map(t -> (this.tasks.indexOf(t) + 1) + ". " + t.toString())
+                .reduce("Here's the list of task that is due or will be due in 1 day:", 
+                    (x, y) -> x + "\n" + y);
         case "mark":
         case "unmark":
         case "delete":
@@ -92,6 +104,7 @@ public class InputHandler {
             "mark <task index>" + "\n" +
             "unmark <task index>" + "\n" +
             "delete <task index>" + "\n" +
+            "due" + "\n" +
             "bye" + "\n" +
             "help";
     }

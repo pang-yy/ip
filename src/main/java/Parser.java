@@ -28,10 +28,10 @@ public class Parser {
             .map(line -> line.split(Parser.DIVIDER))
             .map(arr -> 
                 arr[0].equals("T") ? 
-                    (arr[1].equals("0") ? (new Todo(arr[2])) : (new Todo(arr[2]).mark())) :
+                    (arr[1].equals("false") ? (new Todo(arr[2])) : (new Todo(arr[2]).mark())) :
                 (arr[0].equals("D") ? 
-                    (arr[1].equals("0") ? (new Deadline(arr[2], arr[3])) : (new Deadline(arr[2], arr[3]).mark())) : 
-                (arr[1].equals("0") ? (new Event(arr[2], arr[3], arr[4])) : (new Event(arr[2], arr[3], arr[4]).mark()))))
+                    (arr[1].equals("false") ? (new Deadline(arr[2], arr[3])) : (new Deadline(arr[2], arr[3]).mark())) : 
+                (arr[1].equals("false") ? (new Event(arr[2], arr[3], arr[4])) : (new Event(arr[2], arr[3], arr[4]).mark()))))
             .toList();
     }
 }

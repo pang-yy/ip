@@ -40,6 +40,21 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Determine if this {@code Deadline} item is already past due or will be due in 1 day.
+     *
+     * This method compares the current system date with the stored deadline date.
+     * If the deadline has already elapsed, or is within 1 day from now, it returns
+     * {@code true}. Otherwise, it returns {@code false}.
+     *
+     * @return {@code true} If the deadline is overdue or will occur within 1 day;
+     *         {@code false} otherwise.
+     */
+    @Override
+    boolean isDue() {
+        return !super.getIsDone() && !LocalDate.now().isBefore(this.date.minusDays(1));
+    }
+
     @Override
     String fileFormat() {
         return String.format("D%s%s%s%s%s%s",

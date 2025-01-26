@@ -49,6 +49,18 @@ public class Event extends Task {
         }
     }
     
+    /**
+     * Determine if the current date is after or equal to the starting date,
+     * or exactly one day before the starting date.
+     *
+     * @return {@code true} if today's date is within one day before 
+     *         or on/after the starting date; {@code false} otherwise.
+     */
+    @Override
+    boolean isDue() {
+        return !super.getIsDone() && !LocalDate.now().isBefore(this.startDate.minusDays(1));
+    }
+
     @Override
     String fileFormat() {
         return String.format("E%s%s%s%s%s%s%s%s",

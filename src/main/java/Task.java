@@ -16,9 +16,11 @@ public abstract class Task {
         return this.name;
     }
 
-    protected String getIsDone() {
-        return this.isDone ? "1" : "0";
+    protected boolean getIsDone() {
+        return this.isDone;
     }
+
+    abstract boolean isDue();
 
     abstract String fileFormat();
 

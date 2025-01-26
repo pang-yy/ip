@@ -36,6 +36,6 @@ public class Storage {
     }
 
     public static void writeToFile(Path filePath, String lines) throws IOException {
-        Files.write(filePath, lines.getBytes(), StandardOpenOption.WRITE);
+        Files.write(filePath, lines.getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
     }
 }

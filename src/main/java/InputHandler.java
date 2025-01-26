@@ -9,7 +9,7 @@ public class InputHandler {
     private final Path filepath;
 
     InputHandler() throws IOException {
-        this.filepath = Storage.init("data/data.txt");
+        this.filepath = Storage.init("data/tasks.txt");
         this.tasks = new ArrayList<>(Parser.parseFromFile(Storage.readFromFile(this.filepath)));
     }
 

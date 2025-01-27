@@ -22,6 +22,10 @@ public abstract class Task {
         return this.isDone;
     }
 
+    public boolean contains(String str) {
+        return this.name.contains(str);
+    }
+
     public abstract boolean isDue();
 
     public abstract String fileFormat();

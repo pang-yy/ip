@@ -62,8 +62,18 @@ public class TaskList {
                 .map(t -> (this.tasks.indexOf(t) + 1) + ". " + t.toString())
                 .reduce("Here's the list of task that is due or will be due in 1 day:",
                     (x, y) -> x + "\n" + y);
-        case "mark": // Fallthrough
-        case "unmark": // Fallthrough
+        case "find":
+            try {
+                return this.tasks.stream()
+                    .filter(t -> t.contains(inputs[1]))
+                    .map(t -> (this.tasks.indexOf(t) + 1) + ". " + t.toString())
+                    .reduce("Here's the list of tasks that contain " + inputs[1],
+                        (x, y) -> x + "\n" + y);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new FidoException(FidoException.ErrorType.NOT_VALID_INDEX);
+            }
+        case "mark": //Fallthrough
+        case "unmark": //Fallthrough
         case "delete":
             try {
                 int idx = Integer.parseInt(inputs[1]) - 1;
@@ -125,6 +135,7 @@ public class TaskList {
                 + "deadline <task> /by <date>" + "\n"
                 + "event <task> /from <date> /to <date>" + "\n"
                 + "list" + "\n"
+                + "find <task name>" + "\n"
                 + "mark <task index>" + "\n"
                 + "unmark <task index>" + "\n"
                 + "delete <task index>" + "\n"

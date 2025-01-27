@@ -1,6 +1,6 @@
 package fido.ui;
 
-public class UI {
+public class Ui {
     private final String divider;
     private final int outputIndentLevel;
 
@@ -16,21 +16,21 @@ public class UI {
     
     private static final String BYE_MESSAGE = "Have a nice day!";
 
-    public UI() {
+    public Ui() {
         this("_".repeat(60), 4);
     }
 
-    public UI(String divider, int outputIndentLevel) {
+    public Ui(String divider, int outputIndentLevel) {
         this.divider = divider;
         this.outputIndentLevel = outputIndentLevel;
     }
 
     public void hello() {
-        this.printMessage(UI.GREET_MESSAGE);
+        this.printMessage(Ui.GREET_MESSAGE);
     }
 
     public void bye() {
-        this.printMessage(UI.BYE_MESSAGE);
+        this.printMessage(Ui.BYE_MESSAGE);
     }
 
     public void printMessage(String out) {

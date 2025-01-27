@@ -25,7 +25,7 @@ public class FidoException extends Exception {
 
     @Override
     public String getMessage() {
-        switch(this.eType) {
+        switch (this.eType) {
         case NOT_VALID_INDEX:
             return "Error: The task is not on the list.";
         case NOT_VALID_NUMBER:

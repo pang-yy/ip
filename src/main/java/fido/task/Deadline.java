@@ -1,10 +1,10 @@
 package fido.task;
 
-import fido.storage.Parser;
-import fido.exception.FidoException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+
+import fido.exception.FidoException;
+import fido.storage.Parser;
 
 public class Deadline extends Task {
     private final LocalDate date;
@@ -45,7 +45,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * Determine if this {@code Deadline} item is already past due or will be due in 1 day.
+     * Determine if this {@code Deadline} item is already past due or will be due in
+     * 1 day.
      *
      * This method compares the current system date with the stored deadline date.
      * If the deadline has already elapsed, or is within 1 day from now, it returns
@@ -62,23 +63,23 @@ public class Deadline extends Task {
     @Override
     public String fileFormat() {
         return String.format("D%s%s%s%s%s%s",
-            Parser.DIVIDER, super.getIsDone(), Parser.DIVIDER, super.getName(), 
-            Parser.DIVIDER, this.date.format(Parser.DATE_OUTPUT_FORMAT));
+                Parser.DIVIDER, super.getIsDone(), Parser.DIVIDER, super.getName(),
+                Parser.DIVIDER, this.date.format(Parser.DATE_OUTPUT_FORMAT));
     }
-    
+
     @Override
     public Deadline mark() {
         return new Deadline(super.getName(), true, this.date);
     }
-    
+
     @Override
     public Deadline unmark() {
         return new Deadline(super.getName(), false, this.date);
     }
-    
+
     @Override
     public String toString() {
-        return "[D]" + super.toString() +
-            String.format(" (by: %s)", this.date.format(Parser.DATE_OUTPUT_FORMAT));
+        return "[D]" + super.toString()
+                + String.format(" (by: %s)", this.date.format(Parser.DATE_OUTPUT_FORMAT));
     }
 }

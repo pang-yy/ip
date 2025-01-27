@@ -1,12 +1,12 @@
 package fido.task;
 
-import fido.storage.Parser;
-import fido.storage.Storage;
-import fido.exception.FidoException;
-
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.ArrayList;
+
+import fido.exception.FidoException;
+import fido.storage.Parser;
+import fido.storage.Storage;
 
 public class TaskList {
     private List<Task> tasks;
@@ -23,7 +23,7 @@ public class TaskList {
 
     public String action(String[] inputs) throws FidoException {
         String command = inputs[0].toLowerCase();
-        switch(command) {
+        switch (command) {
         case "list":
             return this.tasks.stream()
                 .map(t -> (this.tasks.indexOf(t) + 1) + ". " + t.toString())
@@ -32,10 +32,10 @@ public class TaskList {
             return this.tasks.stream()
                 .filter(t -> t.isDue())
                 .map(t -> (this.tasks.indexOf(t) + 1) + ". " + t.toString())
-                .reduce("Here's the list of task that is due or will be due in 1 day:", 
+                .reduce("Here's the list of task that is due or will be due in 1 day:",
                     (x, y) -> x + "\n" + y);
-        case "mark": //Fallthrough
-        case "unmark": //Fallthrough
+        case "mark": // Fallthrough
+        case "unmark": // Fallthrough
         case "delete":
             try {
                 int idx = Integer.parseInt(inputs[1]) - 1;
@@ -43,27 +43,27 @@ public class TaskList {
                     Task newTask = this.tasks.get(idx).mark();
                     this.tasks.set(idx, newTask);
                     this.storage.writeToFile(Parser.parseToFile(this.tasks));
-                    return "This task has been marked as done.\n" +
-                        "  " + newTask;
+                    return "This task has been marked as done.\n"
+                        + "  " + newTask;
                 } else if (command.equals("unmark")) {
                     Task newTask = this.tasks.get(idx).unmark();
                     this.tasks.set(idx, newTask);
                     this.storage.writeToFile(Parser.parseToFile(this.tasks));
-                    return "This task has been unmarked.\n" +
-                        "  " + newTask;
+                    return "This task has been unmarked.\n"
+                        + "  " + newTask;
                 } else { // delete
                     Task deletedTask = this.tasks.remove(idx);
                     this.storage.writeToFile(Parser.parseToFile(this.tasks));
-                    return "Following task has been removed.\n" +
-                        "  " + deletedTask;
+                    return "Following task has been removed.\n"
+                        + "  " + deletedTask;
                 }
             } catch (IndexOutOfBoundsException e) {
                 throw new FidoException(FidoException.ErrorType.NOT_VALID_INDEX);
             } catch (NumberFormatException e) {
                 throw new FidoException(FidoException.ErrorType.NOT_VALID_NUMBER);
             }
-        case "todo": //Fallthrough
-        case "deadline": //Fallthrough
+        case "todo": // Fallthrough
+        case "deadline": // Fallthrough
         case "event":
             if (inputs.length < 2) {
                 throw new FidoException(FidoException.ErrorType.EMPTY_DESCRIPTION);
@@ -79,29 +79,29 @@ public class TaskList {
             this.tasks.add(task);
             this.storage.writeToFile(Parser.parseToFile(this.tasks));
             if (this.tasks.size() >= 10) {
-                return "Wow you have so many things to do!\n" + 
-                    "added: " + task;
+                return "Wow you have so many things to do!\n"
+                    + "added: " + task;
             }
             return "added: " + task;
         case "help":
             return this.menu();
         default:
-            return "Sorry it is too complicated.🥺\n" +
-                "Want to see what I can do? Try `help`.";
+            return "Sorry it is too complicated.🥺\n"
+                + "Want to see what I can do? Try `help`.";
         }
     }
 
     private String menu() {
-        return "Here's the list of commands:\n" +
-            "todo <task>" + "\n" +
-            "deadline <task> /by <date>" + "\n" +
-            "event <task> /from <date> /to <date>" + "\n" +
-            "list" + "\n" +
-            "mark <task index>" + "\n" +
-            "unmark <task index>" + "\n" +
-            "delete <task index>" + "\n" +
-            "due" + "\n" +
-            "bye" + "\n" +
-            "help";
+        return "Here's the list of commands:\n"
+                + "todo <task>" + "\n"
+                + "deadline <task> /by <date>" + "\n"
+                + "event <task> /from <date> /to <date>" + "\n"
+                + "list" + "\n"
+                + "mark <task index>" + "\n"
+                + "unmark <task index>" + "\n"
+                + "delete <task index>" + "\n"
+                + "due" + "\n"
+                + "bye" + "\n"
+                + "help";
     }
 }

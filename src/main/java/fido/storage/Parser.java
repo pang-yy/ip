@@ -1,15 +1,14 @@
 package fido.storage;
 
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
+
+import fido.exception.FidoException;
+import fido.task.Deadline;
+import fido.task.Event;
 import fido.task.Task;
 import fido.task.Todo;
-import fido.task.Event;
-import fido.task.Deadline;
-import fido.exception.FidoException;
-
-import java.util.List;
-import java.util.Arrays;
-
-import java.time.format.DateTimeFormatter;
 
 public class Parser {
     public static final String DIVIDER = ";;";
@@ -17,9 +16,9 @@ public class Parser {
 
     public static String parseToFile(List<Task> tasks) {
         return tasks.stream()
-            .map(task -> task.fileFormat())
-            .reduce("", (x, y) -> x + "\n" + y)
-            .trim();
+                .map(task -> task.fileFormat())
+                .reduce("", (x, y) -> x + "\n" + y)
+                .trim();
     }
 
     /**
@@ -33,14 +32,15 @@ public class Parser {
             return List.<Task>of();
         }
         return Arrays.asList(content.split("\n"))
-            .stream()
-            .map(line -> line.split(Parser.DIVIDER))
-            .map(arr -> 
-                arr[0].equals("T") ? 
-                    (arr[1].equals("false") ? (new Todo(arr[2])) : (new Todo(arr[2]).mark())) :
-                (arr[0].equals("D") ? 
-                    (arr[1].equals("false") ? (new Deadline(arr[2], arr[3])) : (new Deadline(arr[2], arr[3]).mark())) : 
-                (arr[1].equals("false") ? (new Event(arr[2], arr[3], arr[4])) : (new Event(arr[2], arr[3], arr[4]).mark()))))
-            .toList();
+                .stream()
+                .map(line -> line.split(Parser.DIVIDER))
+                .map(arr -> arr[0].equals("T")
+                        ? (arr[1].equals("false") ? (new Todo(arr[2])) : (new Todo(arr[2]).mark()))
+                        : (arr[0].equals("D")
+                                ? (arr[1].equals("false") ? (new Deadline(arr[2], arr[3]))
+                                        : (new Deadline(arr[2], arr[3]).mark()))
+                                : (arr[1].equals("false") ? (new Event(arr[2], arr[3], arr[4]))
+                                        : (new Event(arr[2], arr[3], arr[4]).mark()))))
+                .toList();
     }
 }

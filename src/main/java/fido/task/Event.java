@@ -1,10 +1,10 @@
 package fido.task;
 
-import fido.storage.Parser;
-import fido.exception.FidoException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+
+import fido.exception.FidoException;
+import fido.storage.Parser;
 
 /**
  * The {@code Event} class represents a {@link Task} that occurs over 
@@ -82,18 +82,18 @@ public class Event extends Task {
             throw new FidoException(FidoException.ErrorType.EVENT_MISSING_DATE);
         }
         try {
-            return new Event(ins[0].trim(), 
-                LocalDate.parse(ins[1].trim()), LocalDate.parse(ins[2].trim()));
+            return new Event(ins[0].trim(),
+                    LocalDate.parse(ins[1].trim()), LocalDate.parse(ins[2].trim()));
         } catch (DateTimeParseException e) {
             throw new FidoException(FidoException.ErrorType.NOT_VALID_DATE);
         }
     }
-    
+
     /**
      * Determine if the current date is after or equal to the starting date,
      * or exactly one day before the starting date.
      *
-     * @return {@code true} if today's date is within one day before 
+     * @return {@code true} if today's date is within one day before
      *         or on/after the starting date; {@code false} otherwise.
      */
     @Override
@@ -111,9 +111,9 @@ public class Event extends Task {
     @Override
     public String fileFormat() {
         return String.format("E%s%s%s%s%s%s%s%s",
-            Parser.DIVIDER, super.getIsDone(), Parser.DIVIDER, super.getName(), 
-            Parser.DIVIDER, this.startDate.format(Parser.DATE_OUTPUT_FORMAT), 
-            Parser.DIVIDER, this.endDate.format(Parser.DATE_OUTPUT_FORMAT));
+                Parser.DIVIDER, super.getIsDone(), Parser.DIVIDER, super.getName(),
+                Parser.DIVIDER, this.startDate.format(Parser.DATE_OUTPUT_FORMAT),
+                Parser.DIVIDER, this.endDate.format(Parser.DATE_OUTPUT_FORMAT));
     }
     
     /**
@@ -148,9 +148,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() +
-            String.format(" (from: %s to: %s)", 
-            this.startDate.format(Parser.DATE_OUTPUT_FORMAT), 
-            this.endDate.format(Parser.DATE_OUTPUT_FORMAT));
+        return "[E]" + super.toString()
+                + String.format(" (from: %s to: %s)",
+                        this.startDate.format(Parser.DATE_OUTPUT_FORMAT),
+                        this.endDate.format(Parser.DATE_OUTPUT_FORMAT));
     }
 }

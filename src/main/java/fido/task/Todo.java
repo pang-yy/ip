@@ -8,7 +8,7 @@ import fido.storage.Parser;
  * It extends the abstract {@link Task} class.
  */
 public class Todo extends Task {
-    
+
     /**
      * Constructs a new {@code Todo} task with the specified name.
      * By default, the task is not marked as done.
@@ -45,7 +45,7 @@ public class Todo extends Task {
     @Override
     public String fileFormat() {
         return String.format("T%s%s%s%s",
-            Parser.DIVIDER, super.getIsDone(), Parser.DIVIDER, super.getName());
+                Parser.DIVIDER, super.getIsDone(), Parser.DIVIDER, super.getName());
     }
     
     /**
@@ -58,7 +58,7 @@ public class Todo extends Task {
     public Todo mark() {
         return new Todo(super.getName(), true);
     }
-    
+
     /**
      * Marks the {@code Todo} task as not done.
      * This method returns a new {@code Todo} instance with the updated status.
@@ -69,7 +69,7 @@ public class Todo extends Task {
     public Todo unmark() {
         return new Todo(super.getName(), false);
     }
-   
+
     /**
      * Returns a string representation of this {@code Todo} task in the 
      * format "[T][ ] Task Name".

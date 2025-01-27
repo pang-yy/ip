@@ -27,7 +27,7 @@ public abstract class Task {
     public abstract String fileFormat();
 
     public abstract Task mark();
-   
+
     public abstract Task unmark();
 
     public String toString() {

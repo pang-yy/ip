@@ -4,20 +4,19 @@ package fido.ui;
  * The {@code Ui} class handles all user interface operations.
  */
 public class Ui {
+    private static final String BYE_MESSAGE = "Have a nice day!";
+    private static final String GREET_MESSAGE = "Hello, I am\n"
+            + " ________  ___   ________   ________     \n"
+            + "|\\  _____\\|\\  \\ |\\   ___ \\ |\\   __  \\    \n"
+            + "\\ \\  \\__/ \\ \\  \\\\ \\  \\_|\\ \\\\ \\  \\|\\  \\   \n"
+            + " \\ \\   __\\ \\ \\  \\\\ \\  \\ \\\\ \\\\ \\  \\\\\\  \\  \n"
+            + "  \\ \\  \\_|  \\ \\  \\\\ \\  \\_\\\\ \\\\ \\  \\\\\\  \\ \n"
+            + "   \\ \\__\\    \\ \\__\\\\ \\_______\\\\ \\_______\\\n"
+            + "    \\|__|     \\|__| \\|_______| \\|_______|\n"
+            + "What can I do for you?";
+    
     private final String divider;
     private final int outputIndentLevel;
-
-    private static final String GREET_MESSAGE = "Hello, I am\n" +
-        " ________  ___   ________   ________     \n" +
-        "|\\  _____\\|\\  \\ |\\   ___ \\ |\\   __  \\    \n" +
-        "\\ \\  \\__/ \\ \\  \\\\ \\  \\_|\\ \\\\ \\  \\|\\  \\   \n" +
-        " \\ \\   __\\ \\ \\  \\\\ \\  \\ \\\\ \\\\ \\  \\\\\\  \\  \n" +
-        "  \\ \\  \\_|  \\ \\  \\\\ \\  \\_\\\\ \\\\ \\  \\\\\\  \\ \n" +
-        "   \\ \\__\\    \\ \\__\\\\ \\_______\\\\ \\_______\\\n" +
-        "    \\|__|     \\|__| \\|_______| \\|_______|\n" +
-        "What can I do for you?";
-    
-    private static final String BYE_MESSAGE = "Have a nice day!";
 
     /**
      * Constructs a default {@code Ui} instance.
@@ -65,10 +64,10 @@ public class Ui {
      * @return A formatted version of the specified {@code out}.
      */
     public String formatMessage(String out) {
-        return " ".repeat(this.outputIndentLevel) + divider + "\n" +
-            " ".repeat(outputIndentLevel) +
-                out.trim().replaceAll("\n", "\n" + " ".repeat(outputIndentLevel)) + "\n" +
-            " ".repeat(outputIndentLevel) + divider;
+        return " ".repeat(this.outputIndentLevel) + divider + "\n"
+                + " ".repeat(outputIndentLevel)
+                + out.trim().replaceAll("\n", "\n" + " ".repeat(outputIndentLevel)) + "\n"
+                + " ".repeat(outputIndentLevel) + divider;
     }
 
     /**

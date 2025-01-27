@@ -1,12 +1,12 @@
 package fido;
 
-import fido.ui.Ui;
-import fido.task.TaskList;
-import fido.storage.Storage;
-import fido.exception.FidoException;
-
-import java.util.Scanner;
 import java.io.IOException;
+import java.util.Scanner;
+
+import fido.exception.FidoException;
+import fido.storage.Storage;
+import fido.task.TaskList;
+import fido.ui.Ui;
 
 /**
  * The main class for {@code Fido} chatbot.
@@ -14,23 +14,6 @@ import java.io.IOException;
 public class Fido {
     private final Ui ui;
     private final Storage storage;
-
-    /**
-     * The entry point of the chatbot.
-     * This method initialises a new {@code Fido} instance with a path to data file,
-     * and then calls {@link #run()} to start the cahtbot.
-     * If an {@link IOException} occurs, it is caught here, and an error message
-     * is printed and the program will terminates.
-     *
-     * @param args Command-line arguments.
-     */
-    public static void main(String[] args) {
-        try {
-            new Fido("data/task.txt").run();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
     /**
      * Constructs a new {@code Fido} instance using the specified directory.
@@ -55,19 +38,36 @@ public class Fido {
         try {
             TaskList tasklist = new TaskList(this.storage);
             sc.useDelimiter("\n")
-                .tokens()
-                .takeWhile(line -> !line.trim().equalsIgnoreCase("bye"))
-                .forEach(line -> {
-                    try {
-                        this.ui.printMessage(tasklist.action(line.trim().split(" ")));
-                    } catch (FidoException e) {
-                        this.ui.printMessage(e.getMessage());
-                    }
-                });
+                    .tokens()
+                    .takeWhile(line -> !line.trim().equalsIgnoreCase("bye"))
+                    .forEach(line -> {
+                        try {
+                            this.ui.printMessage(tasklist.action(line.trim().split(" ")));
+                        } catch (FidoException e) {
+                            this.ui.printMessage(e.getMessage());
+                        }
+                    });
             sc.close();
         } catch (FidoException e) {
             this.ui.printMessage(e.getMessage());
         }
         this.ui.bye();
+    }
+
+    /**
+     * The entry point of the chatbot.
+     * This method initialises a new {@code Fido} instance with a path to data file,
+     * and then calls {@link #run()} to start the cahtbot.
+     * If an {@link IOException} occurs, it is caught here, and an error message
+     * is printed and the program will terminates.
+     *
+     * @param args Command-line arguments.
+     */
+    public static void main(String[] args) {
+        try {
+            new Fido("data/task.txt").run();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

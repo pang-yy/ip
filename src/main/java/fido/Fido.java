@@ -6,6 +6,7 @@ import fido.task.TaskList;
 import fido.exception.FidoException;
 
 import java.io.IOException;
+
 import java.util.Scanner;
 
 public class Fido {

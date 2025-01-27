@@ -7,8 +7,9 @@ import fido.task.Deadline;
 import fido.exception.FidoException;
 
 import java.util.List;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+
+import java.time.format.DateTimeFormatter;
 
 public class Parser {
     public static final String DIVIDER = ";;";

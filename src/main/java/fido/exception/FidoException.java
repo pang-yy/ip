@@ -1,6 +1,15 @@
 package fido.exception;
 
+/**
+ * The {@code FidoException} class represents custom exceptions specific to the
+ * Fido chatbot.
+ * It encapsulates different types of errors that can occur within the application.
+ */
 public class FidoException extends Exception {
+
+    /**
+     * Represents the various types of errors that can occur in the Fido chatbot.
+     */
     public enum ErrorType {
         NOT_VALID_INDEX,
         NOT_VALID_NUMBER,
@@ -19,10 +28,20 @@ public class FidoException extends Exception {
 
     private final ErrorType eType;
 
+    /**
+     * Constructs a new {@code FidoException} with the specified {@link ErrorType}.
+     *
+     * @patam errorType The type of error that occurred.
+     */
     public FidoException(ErrorType eType) {
         this.eType = eType;
     }
 
+    /**
+     * Returns error message associated with this exception based on its {@link ErrorType}.
+     * 
+     * @return A {@code String} describing the error.
+     */
     @Override
     public String getMessage() {
         switch(this.eType) {

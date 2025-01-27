@@ -8,10 +8,28 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * The {@code TaskList} class manages a list of {@link Task} and handles user actions,
+ * by interacting with {@link Storage} instance.
+ * It perform actions based on user commands, and update both the in-memory task list
+ * and the task file in hark disk accordingly.
+ *
+ * This class encapsulates a {@code List<Task>} to store tasks and a {@code Storage}
+ * instance to handle file operations.
+ */
 public class TaskList {
     private List<Task> tasks;
     private final Storage storage;
 
+    /**
+     * Constructs a new {@code TaskList} with the specified {@link Storage} instance.
+     * This constructor attempts to load all existing tasks from the storage. If loading fails
+     * due to reasons such as access issues or parsing issues, a {@link FidoException}
+     * is thrown to indicate the failure.
+     *
+     * @param storage The {@code Storage} instance responsible for file operations.
+     * @throws FidoException If an error occurs while loading tasks from the storage.
+     */
     public TaskList(Storage storage) throws FidoException {
         try {
             this.storage = storage;
@@ -21,6 +39,16 @@ public class TaskList {
         }
     }
 
+    /**
+     * Executes an action based on the user command provided in the {@code inputs} array.
+     * The first element of the {@code inputs} array determines the type of action to perform.
+     * Depending on the command, this method may add, delete, update, or display tasks.
+     *
+     * @param inputs An array of {@code String} representing the user command and its arguments.
+     *               The command is expected to be in {@code inputs[0]}, followed by relevant arguments.
+     * @return A {@code String} message indicating the result of the action, which can be displayed to the user.
+     * @throws FidoException If the action fails due to reasons such as incorrect arguments, and invalid arguments.
+     */
     public String action(String[] inputs) throws FidoException {
         String command = inputs[0].toLowerCase();
         switch(command) {

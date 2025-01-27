@@ -1,18 +1,29 @@
 package fido;
 
 import fido.ui.Ui;
-import fido.storage.Storage;
 import fido.task.TaskList;
+import fido.storage.Storage;
 import fido.exception.FidoException;
 
-import java.io.IOException;
 import java.util.Scanner;
+import java.io.IOException;
 
+/**
+ * The main class for {@code Fido} chatbot.
+ */
 public class Fido {
-
     private final Ui ui;
     private final Storage storage;
 
+    /**
+     * The entry point of the chatbot.
+     * This method initialises a new {@code Fido} instance with a path to data file,
+     * and then calls {@link #run()} to start the cahtbot.
+     * If an {@link IOException} occurs, it is caught here, and an error message
+     * is printed and the program will terminates.
+     *
+     * @param args Command-line arguments.
+     */
     public static void main(String[] args) {
         try {
             new Fido("data/task.txt").run();
@@ -21,11 +32,23 @@ public class Fido {
         }
     }
 
+    /**
+     * Constructs a new {@code Fido} instance using the specified directory.
+     * This constructor may throw an {@link IOException} if it fails
+     * to access or initialise necessary path.
+     *
+     * @param dirName The directory name or path where the task file are located.
+     * @throws IOException If an error occurs while initialising the specified path.
+     */
     public Fido(String dirName) throws IOException {
         this.ui = new Ui();
         this.storage = new Storage(dirName);
     }
 
+    /**
+     * Runs the chatbot.
+     * This method contains the primary chatbot loop.
+     */
     public void run() {
         Scanner sc = new Scanner(System.in);
         this.ui.hello();

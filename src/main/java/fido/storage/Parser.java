@@ -10,10 +10,21 @@ import java.util.List;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
+/**
+ * The {@code Parser} class is responsible for converting {@link Task} objects 
+ * to their string representations for file storage and 
+ * parsing stored strings back into {@link Task} objects.
+ */
 public class Parser {
     public static final String DIVIDER = ";;";
     public static final DateTimeFormatter DATE_OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
+    /**
+     * Parses list of tasks into a string format suitable for file storage.
+     *
+     * @params tasks List of tasks.
+     * @return A {@code String} representating the tasks for file storage.
+     */
     public static String parseToFile(List<Task> tasks) {
         return tasks.stream()
             .map(task -> task.fileFormat())
@@ -22,7 +33,7 @@ public class Parser {
     }
 
     /**
-     * Parse file content into list of {@code Task}.
+     * Parses file content into list of {@code Task}.
      *
      * @param content The content read from file.
      * @return List of {@code Task} objects.

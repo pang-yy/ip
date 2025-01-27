@@ -17,11 +17,11 @@ public class Ui {
     private static final String BYE_MESSAGE = "Have a nice day!";
 
     public Ui() {
-        this("_".repeat(60), 4);
+        this("_", 60, 4);
     }
 
-    public Ui(String divider, int outputIndentLevel) {
-        this.divider = divider;
+    public Ui(String divider, int dividerRepeat, int outputIndentLevel) {
+        this.divider = divider.repeat(dividerRepeat);
         this.outputIndentLevel = outputIndentLevel;
     }
 
@@ -33,10 +33,14 @@ public class Ui {
         this.printMessage(Ui.BYE_MESSAGE);
     }
 
+    public String formatMessage(String out) {
+        return " ".repeat(this.outputIndentLevel) + divider + "\n" +
+            " ".repeat(outputIndentLevel) +
+                out.trim().replaceAll("\n", "\n" + " ".repeat(outputIndentLevel)) + "\n" +
+            " ".repeat(outputIndentLevel) + divider;
+    }
+
     public void printMessage(String out) {
-        System.out.println(" ".repeat(outputIndentLevel) + divider);
-        System.out.println(" ".repeat(outputIndentLevel) +
-            out.trim().replaceAll("\n", "\n" + " ".repeat(outputIndentLevel)));
-        System.out.println(" ".repeat(outputIndentLevel) + divider);
+        System.out.println(this.formatMessage(out));
     }
 }

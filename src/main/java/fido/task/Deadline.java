@@ -16,7 +16,7 @@ public class Deadline extends Task {
 
     /**
      * Constructs a new {@code Deadline} task with the specified name and due date.
-     * The date is provided as a {@link String} in the 
+     * The date is provided as a {@link String} in the
      * format "MMM dd yyy" (e.g., "May 20 2024").
      *
      * @param name The name or description of the task.
@@ -29,7 +29,7 @@ public class Deadline extends Task {
 
     /**
      * Constructs a new {@code Deadline} task with the specified name and due date.
-     * The date is provided as a {@link LocalDate} in the 
+     * The date is provided as a {@link LocalDate} in the
      * format "yyyy-MM-dd" (e.g., "2024-05-20").
      *
      * @param name The name or description of the task.
@@ -128,7 +128,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation of this {@code Deadline} task in the 
+     * Returns a string representation of this {@code Deadline} task in the
      * format "[D][ ] Task Name (by: MMM dd yyyy)".
      * - "[D]" denotes it is a {@code Deadline} task.
      * - "[ ]" or "[X]" indicates whether the task is not done or done respectively.

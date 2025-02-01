@@ -20,7 +20,7 @@ public class Storage {
      * Ensures the given file path and its parent directories exist
      * by checking for their presence and creating any missing directories
      * or the file itself if they do not exist.
-     * The dirName argument must be in the form of '<path 1>/<path 2>/<file name>'
+     * The dirName argument must be in the form of '[path_1]/[path_2]/[file_name]'
      *
      * @param dirName Relative file path to be checked.
      * @return The path to the file.

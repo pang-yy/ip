@@ -39,7 +39,7 @@ public class FidoException extends Exception {
 
     /**
      * Returns error message associated with this exception based on its {@link ErrorType}.
-     * 
+     *
      * @return A {@code String} describing the error.
      */
     @Override

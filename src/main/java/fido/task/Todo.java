@@ -12,7 +12,7 @@ public class Todo extends Task {
     /**
      * Constructs a new {@code Todo} task with the specified name.
      * By default, the task is not marked as done.
-     * 
+     *
      * @param name The name or description of the task.
      */
     public Todo(String name) {
@@ -47,7 +47,7 @@ public class Todo extends Task {
         return String.format("T%s%s%s%s",
                 Parser.DIVIDER, super.getIsDone(), Parser.DIVIDER, super.getName());
     }
-    
+
     /**
      * Marks the {@code Todo} task as done.
      * This method returns a new {@code Todo} instance with the updated status.
@@ -71,7 +71,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Returns a string representation of this {@code Todo} task in the 
+     * Returns a string representation of this {@code Todo} task in the
      * format "[T][ ] Task Name".
      * - "[T]" denotes it is a {@code Todo} task.
      * - "[ ]" or "[X]" indicates whether the task is not done or done respectively.

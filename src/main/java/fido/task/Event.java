@@ -7,7 +7,7 @@ import fido.exception.FidoException;
 import fido.storage.Parser;
 
 /**
- * The {@code Event} class represents a {@link Task} that occurs over 
+ * The {@code Event} class represents a {@link Task} that occurs over
  * a specific time period, it can be marked as done or not done.
  * It extends the abstract {@link Task} class.
  */
@@ -18,7 +18,7 @@ public class Event extends Task {
     /**
      * Constructs a new {@code Event} task with the specified name, start date,
      * and end date.
-     * The dates are provided as a {@link String} in the 
+     * The dates are provided as a {@link String} in the
      * format "MMM dd yyy" (e.g., "May 20 2024").
      *
      * @param name The name or description of the task.
@@ -30,11 +30,11 @@ public class Event extends Task {
         this.startDate = LocalDate.parse(startDate, Parser.DATE_OUTPUT_FORMAT);
         this.endDate = LocalDate.parse(endDate, Parser.DATE_OUTPUT_FORMAT);
     }
-    
+
     /**
      * Constructs a new {@code Event} task with the specified name, start date,
      * and end date.
-     * The dates are provided as a {@link LocalDate} in the 
+     * The dates are provided as a {@link LocalDate} in the
      * format "yyyy-MM-dd" (e.g., "2024-04-20").
      *
      * @param name The name or description of the task.
@@ -56,7 +56,7 @@ public class Event extends Task {
     /**
      * Creates a new {@code Event} instance from raw input.
      * The raw input should include the task name, and dates in "yyyy-MM-dd" format,
-     * separated by "/from" and "to" 
+     * separated by "/from" and "to"
      * (e.g., sales /from 2024-05-20 /to 2024-06-20).
      *
      * @param rawInput The raw input string containing the task name, start date, and end date.
@@ -115,7 +115,7 @@ public class Event extends Task {
                 Parser.DIVIDER, this.startDate.format(Parser.DATE_OUTPUT_FORMAT),
                 Parser.DIVIDER, this.endDate.format(Parser.DATE_OUTPUT_FORMAT));
     }
-    
+
     /**
      * Marks the {@code Event} task as done.
      * This method returns a new {@code Event} instance with the updated status.
@@ -126,7 +126,7 @@ public class Event extends Task {
     public Event mark() {
         return new Event(super.getName(), true, this.startDate, this.endDate);
     }
-    
+
     /**
      * Marks the {@code Event} task as not done.
      * This method returns a new {@code Event} instance with the updated status.
@@ -137,9 +137,9 @@ public class Event extends Task {
     public Event unmark() {
         return new Event(super.getName(), false, this.startDate, this.endDate);
     }
-    
+
     /**
-     * Returns a string representation of this {@code Event} task in the 
+     * Returns a string representation of this {@code Event} task in the
      * format "[E][ ] Task Name (from: MMM dd yyyy to: MMM dd yyyy)".
      * - "[E]" denotes it is a {@code Event} task.
      * - "[ ]" or "[X]" indicates whether the task is not done or done respectively.

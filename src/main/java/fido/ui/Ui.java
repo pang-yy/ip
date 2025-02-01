@@ -14,7 +14,7 @@ public class Ui {
             + "   \\ \\__\\    \\ \\__\\\\ \\_______\\\\ \\_______\\\n"
             + "    \\|__|     \\|__| \\|_______| \\|_______|\n"
             + "What can I do for you?";
-    
+
     private final String divider;
     private final int outputIndentLevel;
 
@@ -59,7 +59,7 @@ public class Ui {
     /**
      * Formats the given message according to the {@code Ui}'s setting and
      * returns the formatted string.
-     * 
+     *
      * @param out The raw message that needs to be formatted.
      * @return A formatted version of the specified {@code out}.
      */

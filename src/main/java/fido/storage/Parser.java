@@ -11,8 +11,8 @@ import fido.task.Task;
 import fido.task.Todo;
 
 /**
- * The {@code Parser} class is responsible for converting {@link Task} objects 
- * to their string representations for file storage and 
+ * The {@code Parser} class is responsible for converting {@link Task} objects
+ * to their string representations for file storage and
  * parsing stored strings back into {@link Task} objects.
  */
 public class Parser {

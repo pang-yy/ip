@@ -122,7 +122,7 @@ public class TaskList {
         case "help":
             return this.menu();
         default:
-            return "Sorry it is too complicated.🥺\n"
+            return "Sorry it is too complicated.\n"
                 + "Want to see what I can do? Try `help`.";
         }
     }

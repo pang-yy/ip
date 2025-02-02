@@ -50,10 +50,24 @@ public class Ui {
     }
 
     /**
+     * Returns welcome message.
+     */
+    public String getHello() {
+        return Ui.GREET_MESSAGE;
+    }
+
+    /**
      * Prints a bye message to the user.
      */
     public void bye() {
         this.printMessage(Ui.BYE_MESSAGE);
+    }
+
+    /**
+     * Returns bye message.
+     */
+    public String getBye() {
+        return Ui.BYE_MESSAGE;
     }
 
     /**

@@ -61,6 +61,8 @@ public class Fido {
     public String getResponse(String inputs) {
         if (inputs.trim().equals("bye")) {
             return this.ui.getBye();
+        } else if (inputs.trim().equals("hello")) {
+            return this.ui.getHello();
         }
         try {
             return this.taskList.action(inputs.trim().split(" "));

@@ -30,6 +30,7 @@ public class Main extends Application {
             stage.setTitle("Fido chatbot");
             fxmlLoader.<MainWindow>getController().setFido(this.fido);
             stage.show();
+            fxmlLoader.<MainWindow>getController().sendStartUp();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (FidoException e) {

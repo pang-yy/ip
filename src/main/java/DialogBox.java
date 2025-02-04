@@ -50,7 +50,7 @@ public class DialogBox extends HBox {
         return new DialogBox(str, img);
     }
 
-    public static DialogBox getDukeDialog(String str, Image img) {
+    public static DialogBox getBotDialog(String str, Image img) {
         var db = new DialogBox(str, img);
         db.flip();
         return db;

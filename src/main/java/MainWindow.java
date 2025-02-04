@@ -35,6 +35,14 @@ public class MainWindow extends AnchorPane {
         this.fido = fido;
     }
 
+    /** Send hello message on start up */
+    public void sendStartUp() {
+        //String helloMessage = fido.getResponse("hello");
+        dialogContainer.getChildren().addAll(
+            DialogBox.getBotDialog("Hello from GUI,\nI am Fido,\ntype `help` for list of commands!", fidoImage)
+        );
+    }
+
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
@@ -46,7 +54,7 @@ public class MainWindow extends AnchorPane {
             String response = fido.getResponse(input);
             dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, fidoImage)
+                DialogBox.getBotDialog(response, fidoImage)
             );
             userInput.clear();
         }

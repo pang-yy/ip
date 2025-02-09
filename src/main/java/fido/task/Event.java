@@ -81,6 +81,7 @@ public class Event extends Task {
         } else if (ins.length < 3) {
             throw new FidoException(FidoException.ErrorType.EVENT_MISSING_DATE);
         }
+        assert ins.length >= 3 : "Event task should be 3 arguments after spliting";
         try {
             return new Event(ins[0].trim(),
                     LocalDate.parse(ins[1].trim()), LocalDate.parse(ins[2].trim()));

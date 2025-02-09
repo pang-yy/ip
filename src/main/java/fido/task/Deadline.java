@@ -68,6 +68,7 @@ public class Deadline extends Task {
         } else if (ins.length == 1) {
             throw new FidoException(FidoException.ErrorType.DEADLINE_EMPTY_DATE);
         }
+        assert ins.length >= 2 : "Raw input for Deadline should be 2 arguments after spliting";
         try {
             return new Deadline(ins[0].trim(), LocalDate.parse(ins[1].trim()));
         } catch (DateTimeParseException e) {

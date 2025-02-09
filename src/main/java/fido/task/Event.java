@@ -2,6 +2,7 @@ package fido.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 import fido.exception.FidoException;
 import fido.storage.Parser;
@@ -137,6 +138,39 @@ public class Event extends Task {
     @Override
     public Event unmark() {
         return new Event(super.getName(), false, this.startDate, this.endDate);
+    }
+
+    /**
+     * Compares this {@code Event} to the specified object. 
+     * Returns {@code true} if:
+     *     - the other object is also a {@code Event}, and
+     *     - both have the same {@code name}, and
+     *     - both have the same {@code startDate}, and
+     *     - both have the same {@code endDate}, and
+     *     - both are not done.
+     *
+     * @param obj The object to compare with this {@code Event}.
+     * @return {@code true} if this {@code Event} is the same as the specified object, 
+     *          otherwise {@code false}.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof Event other) {
+            return this.getName().equals(other.getName()) &&
+                this.startDate.equals(other.startDate) &&
+                this.endDate.equals(other.endDate) &&
+                !this.getIsDone() && !other.getIsDone();
+        }
+        return false;
+    }
+    
+    // Returns a hash code value for this Task.
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.getName(), this.startDate, this.endDate, super.getIsDone());
     }
 
     /**

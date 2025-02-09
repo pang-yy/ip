@@ -34,6 +34,12 @@ public abstract class Task {
 
     public abstract Task unmark();
 
+    @Override
+    public abstract boolean equals(Object obj);
+
+    @Override
+    public abstract int hashCode();
+
     public String toString() {
         if (this.isDone) {
             return "[X] " + this.name;

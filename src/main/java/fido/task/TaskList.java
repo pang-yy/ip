@@ -3,6 +3,8 @@ package fido.task;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 import fido.exception.FidoException;
 import fido.storage.Parser;
@@ -53,19 +55,19 @@ public class TaskList {
         String command = inputs[0].toLowerCase();
         switch (command) {
         case "list":
-            return this.tasks.stream()
-                .map(t -> (this.tasks.indexOf(t) + 1) + ". " + t.toString())
+            return Stream.<Integer>iterate(0, i -> i < this.tasks.size(), i -> i + 1)
+                .map(i -> (i + 1) + ". " + this.tasks.get(i).toString())
                 .reduce("", (x, y) -> x + "\n" + y);
         case "due":
-            return this.tasks.stream()
-                .filter(t -> t.isDue())
-                .map(t -> (this.tasks.indexOf(t) + 1) + ". " + t.toString())
+            return Stream.<Integer>iterate(0, i -> i < this.tasks.size(), i -> i + 1)
+                .filter(i -> this.tasks.get(i).isDue())
+                .map(i -> (i + 1) + ". " + this.tasks.get(i).toString())
                 .reduce("Here's the list of task that is due or will be due in 1 day:", (x, y) -> x + "\n" + y);
         case "find":
             try {
-                return this.tasks.stream()
-                    .filter(t -> t.contains(inputs[1]))
-                    .map(t -> (this.tasks.indexOf(t) + 1) + ". " + t.toString())
+                return Stream.<Integer>iterate(0, i -> i < this.tasks.size(), i -> i + 1)
+                    .filter(i -> this.tasks.get(i).contains(inputs[1]))
+                    .map(i -> (i + 1) + ". " + this.tasks.get(i).toString())
                     .reduce("Here's the list of tasks that contain " + inputs[1], (x, y) -> x + "\n" + y);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new FidoException(FidoException.ErrorType.NOT_VALID_INDEX);
@@ -112,13 +114,26 @@ public class TaskList {
             } else { // event
                 task = Event.of(String.join(" ", Arrays.copyOfRange(inputs, 1, inputs.length)));
             }
+
+            /* Find if there are same task exists,
+             */
+            Optional<Task> sameTask = this.tasks.stream()
+                .filter(t -> t.equals(task))
+                .findFirst();
             this.tasks.add(task);
             this.storage.writeToFile(Parser.parseToFile(this.tasks));
-            if (this.tasks.size() >= 10) {
-                return "Wow you have so many things to do!\n"
-                    + "added: " + task;
-            }
-            return "added: " + task;
+            return sameTask
+                .map(t -> 
+                    "added: " + task.toString() 
+                    + "\nPossible dupleicate items: " + t.toString()
+                    + "\nUse `rmdp` to remove duplicates.")
+                .orElse("added: " + task.toString());
+        case "rmdp":
+            // stream toList returns immutable list
+            this.tasks = new ArrayList<>(
+                this.tasks.stream().distinct().toList());
+            this.storage.writeToFile(Parser.parseToFile(this.tasks));
+            return "Removed duplicate.";
         case "help":
             return this.menu();
         default:
@@ -138,6 +153,7 @@ public class TaskList {
                 + "unmark <task index>" + "\n"
                 + "delete <task index>" + "\n"
                 + "due" + "\n"
+                + "rmdp" + "\n"
                 + "bye" + "\n"
                 + "help";
     }

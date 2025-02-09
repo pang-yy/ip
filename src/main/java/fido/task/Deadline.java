@@ -2,6 +2,7 @@ package fido.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 import fido.exception.FidoException;
 import fido.storage.Parser;
@@ -126,6 +127,37 @@ public class Deadline extends Task {
     @Override
     public Deadline unmark() {
         return new Deadline(super.getName(), false, this.date);
+    }
+
+    /**
+     * Compares this {@code Deadline} to the specified object. 
+     * Returns {@code true} if:
+     *     - the other object is also a {@code Deadline}, and
+     *     - both have the same {@code name}, and
+     *     - both have the same {@code date}, and
+     *     - both are not done.
+     *
+     * @param obj The object to compare with this {@code Deadline}.
+     * @return {@code true} if this {@code Deadline} is the same as the specified object, 
+     *          otherwise {@code false}.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof Deadline other) {
+            return this.getName().equals(other.getName()) &&
+                this.date.equals(other.date) &&
+                !this.getIsDone() && !other.getIsDone();
+        }
+        return false;
+    }
+
+    // Returns a hash code value for this Task.
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.getName(), this.date, super.getIsDone());
     }
 
     /**

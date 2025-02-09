@@ -48,7 +48,9 @@ public class Fido {
                 .takeWhile(line -> !line.trim().equalsIgnoreCase("bye"))
                 .forEach(line -> {
                     try {
-                        this.ui.printMessage(this.taskList.action(line.trim().split(" ")));
+                        this.ui.printMessage(
+                            this.taskList.action(line.trim().split(" "))
+                        );
                     } catch (FidoException e) {
                         this.ui.printMessage(e.getMessage());
                     }

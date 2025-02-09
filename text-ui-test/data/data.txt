@@ -1,4 +1,0 @@
-T;;1;;read novel
-D;;0;;complete CS2106 assignment;;this Sunday
-D;;0;;complete survey;;next Monday 2 pm
-E;;0;;career fair;;Jan 22nd Wednesday;;Jan 23rd Thursdayfair;;Jan 22nd Wednesday;;Jan 23rd Thursday

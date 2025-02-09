@@ -1,5 +1,7 @@
 package fido.task;
 
+import java.util.Objects;
+
 import fido.storage.Parser;
 
 /**
@@ -68,6 +70,35 @@ public class Todo extends Task {
     @Override
     public Todo unmark() {
         return new Todo(super.getName(), false);
+    }
+
+    /**
+     * Compares this {@code Todo} to the specified object. 
+     * Returns {@code true} if:
+     *     - the other object is also a {@code Todo}, and
+     *     - both have the same {@code name}, and
+     *     - both are not done.
+     *
+     * @param obj The object to compare with this {@code Todo}.
+     * @return {@code true} if this {@code Todo} is the same as the specified object, 
+     *          otherwise {@code false}.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof Todo other) {
+            return this.getName().equals(other.getName()) &&
+                !this.getIsDone() && !other.getIsDone();
+        }
+        return false;
+    }
+    
+    // Returns a hash code value for this Task.
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.getName(), super.getIsDone());
     }
 
     /**

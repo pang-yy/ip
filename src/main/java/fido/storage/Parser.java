@@ -46,10 +46,14 @@ public class Parser {
                 .stream()
                 .map(line -> line.split(Parser.DIVIDER))
                 .map(arr -> arr[0].equals("T")
+                        // If is a TODO task
                         ? (arr[1].equals("false") ? (new Todo(arr[2])) : (new Todo(arr[2]).mark()))
+                        // Otherwise:
                         : (arr[0].equals("D")
+                                // if is a DEADLINE task
                                 ? (arr[1].equals("false") ? (new Deadline(arr[2], arr[3]))
                                         : (new Deadline(arr[2], arr[3]).mark()))
+                                // if is a EVENT task
                                 : (arr[1].equals("false") ? (new Event(arr[2], arr[3], arr[4]))
                                         : (new Event(arr[2], arr[3], arr[4]).mark()))))
                 .toList();

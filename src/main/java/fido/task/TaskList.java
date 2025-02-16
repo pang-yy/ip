@@ -62,13 +62,13 @@ public class TaskList {
             return Stream.<Integer>iterate(0, i -> i < this.tasks.size(), i -> i + 1)
                 .filter(i -> this.tasks.get(i).isDue())
                 .map(i -> (i + 1) + ". " + this.tasks.get(i).toString())
-                .reduce("Here's the list of task that is due or will be due in 1 day:", (x, y) -> x + "\n" + y);
+                .reduce("Here's the list of tasks that are due or will be due in 1 day:", (x, y) -> x + "\n" + y);
         case "find":
             try {
                 return Stream.<Integer>iterate(0, i -> i < this.tasks.size(), i -> i + 1)
                     .filter(i -> this.tasks.get(i).contains(inputs[1]))
                     .map(i -> (i + 1) + ". " + this.tasks.get(i).toString())
-                    .reduce("Here's the list of tasks that contain " + inputs[1], (x, y) -> x + "\n" + y);
+                    .reduce("Here's the list of tasks that contain " + inputs[1] + ":", (x, y) -> x + "\n" + y);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new FidoException(FidoException.ErrorType.NOT_VALID_INDEX);
             }
@@ -92,7 +92,7 @@ public class TaskList {
                 } else { // delete
                     Task deletedTask = this.tasks.remove(idx);
                     this.storage.writeToFile(Parser.parseToFile(this.tasks));
-                    return "Following task has been removed.\n"
+                    return "Following task has been removed:\n"
                         + "  " + deletedTask;
                 }
             } catch (IndexOutOfBoundsException e) {
@@ -125,7 +125,7 @@ public class TaskList {
             return sameTask
                 .map(t -> 
                     "added: " + task.toString() 
-                    + "\nPossible dupleicate items: " + t.toString()
+                    + "\nPossible dupleicate tasks: " + t.toString()
                     + "\nUse `rmdp` to remove duplicates.")
                 .orElse("added: " + task.toString());
         case "rmdp":

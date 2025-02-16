@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
     private Fido fido;
 
-    private final Image applicationIcon = new Image(this.getClass().getResourceAsStream("/images/Fido.png"));
+    private final Image applicationIcon = new Image(this.getClass().getResourceAsStream("/images/leonardo.png"));
 
     @Override
     public void start(Stage stage) {

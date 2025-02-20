@@ -37,7 +37,6 @@ public class MainWindow extends AnchorPane {
 
     /** Send hello message on start up */
     public void sendStartUp() {
-        //String helloMessage = fido.getResponse("hello");
         dialogContainer.getChildren().addAll(
             DialogBox.getBotDialog("Hello from GUI,\nI am Fido,\ntype `help` for list of commands!", fidoImage)
         );

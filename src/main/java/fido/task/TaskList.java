@@ -55,48 +55,23 @@ public class TaskList {
         String command = inputs[0].toLowerCase();
         switch (command) {
         case "list":
-            return Stream.<Integer>iterate(0, i -> i < this.tasks.size(), i -> i + 1)
-                .map(i -> (i + 1) + ". " + this.tasks.get(i).toString())
-                .reduce("", (x, y) -> x + "\n" + y);
+            return this.listCommand();
         case "due":
-            return Stream.<Integer>iterate(0, i -> i < this.tasks.size(), i -> i + 1)
-                .filter(i -> this.tasks.get(i).isDue())
-                .map(i -> (i + 1) + ". " + this.tasks.get(i).toString())
-                .reduce("Here's the list of tasks that are due or will be due in 1 day:", (x, y) -> x + "\n" + y);
+            return this.dueCommand();
         case "find":
-            try {
-                return Stream.<Integer>iterate(0, i -> i < this.tasks.size(), i -> i + 1)
-                    .filter(i -> this.tasks.get(i).contains(inputs[1]))
-                    .map(i -> (i + 1) + ". " + this.tasks.get(i).toString())
-                    .reduce("Here's the list of tasks that contain " + inputs[1] + ":", (x, y) -> x + "\n" + y);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new FidoException(FidoException.ErrorType.NOT_VALID_INDEX);
-            }
+            return this.findCommand(inputs[1]);
         case "mark": //Fallthrough
         case "unmark": //Fallthrough
         case "delete":
             try {
                 int idx = Integer.parseInt(inputs[1]) - 1;
                 if (command.equals("mark")) {
-                    Task newTask = this.tasks.get(idx).mark();
-                    this.tasks.set(idx, newTask);
-                    this.storage.writeToFile(Parser.parseToFile(this.tasks));
-                    return "This task has been marked as done.\n"
-                        + "  " + newTask;
+                    return this.markCommand(idx);
                 } else if (command.equals("unmark")) {
-                    Task newTask = this.tasks.get(idx).unmark();
-                    this.tasks.set(idx, newTask);
-                    this.storage.writeToFile(Parser.parseToFile(this.tasks));
-                    return "This task has been unmarked.\n"
-                        + "  " + newTask;
+                    return this.unmarkCommand(idx);
                 } else { // delete
-                    Task deletedTask = this.tasks.remove(idx);
-                    this.storage.writeToFile(Parser.parseToFile(this.tasks));
-                    return "Following task has been removed:\n"
-                        + "  " + deletedTask;
+                    return this.deleteCommand(idx);
                 }
-            } catch (IndexOutOfBoundsException e) {
-                throw new FidoException(FidoException.ErrorType.NOT_VALID_INDEX);
             } catch (NumberFormatException e) {
                 throw new FidoException(FidoException.ErrorType.NOT_VALID_NUMBER);
             }
@@ -114,32 +89,98 @@ public class TaskList {
             } else { // event
                 task = Event.of(String.join(" ", Arrays.copyOfRange(inputs, 1, inputs.length)));
             }
-
-            /* Find if there are same task exists,
-             */
-            Optional<Task> sameTask = this.tasks.stream()
-                .filter(t -> t.equals(task))
-                .findFirst();
-            this.tasks.add(task);
-            this.storage.writeToFile(Parser.parseToFile(this.tasks));
-            return sameTask
-                .map(t -> 
-                    "added: " + task.toString() 
-                    + "\nPossible dupleicate tasks: " + t.toString()
-                    + "\nUse `rmdp` to remove duplicates.")
-                .orElse("added: " + task.toString());
+            return this.taskCommand(task);
         case "rmdp":
-            // stream toList returns immutable list
-            this.tasks = new ArrayList<>(
-                this.tasks.stream().distinct().toList());
-            this.storage.writeToFile(Parser.parseToFile(this.tasks));
-            return "Removed duplicate.";
+            return this.rmdpCommand();
         case "help":
             return this.menu();
         default:
             return "Sorry it is too complicated.\n"
                 + "Want to see what I can do? Try `help`.";
         }
+    }
+
+    private String taskCommand(Task task) throws FidoException {
+        /* Find if there are same task exists,
+         */
+        Optional<Task> sameTask = this.tasks.stream()
+            .filter(t -> t.equals(task))
+            .findFirst();
+        this.tasks.add(task);
+        this.storage.writeToFile(Parser.parseToFile(this.tasks));
+        return sameTask
+            .map(t -> 
+                "added: " + task.toString() 
+                + "\nPossible dupleicate tasks: " + t.toString()
+                + "\nUse `rmdp` to remove duplicates.")
+            .orElse("added: " + task.toString());
+    }
+
+    private String listCommand() {
+        return Stream.<Integer>iterate(0, i -> i < this.tasks.size(), i -> i + 1)
+            .map(i -> (i + 1) + ". " + this.tasks.get(i).toString())
+            .reduce("", (x, y) -> x + "\n" + y);
+    }
+
+    private String dueCommand() {
+        return Stream.<Integer>iterate(0, i -> i < this.tasks.size(), i -> i + 1)
+            .filter(i -> this.tasks.get(i).isDue())
+            .map(i -> (i + 1) + ". " + this.tasks.get(i).toString())
+            .reduce("Here's the list of tasks that are due or will be due in 1 day:", (x, y) -> x + "\n" + y);
+    }
+
+    private String findCommand(String keyword) throws FidoException {
+        try {
+            return Stream.<Integer>iterate(0, i -> i < this.tasks.size(), i -> i + 1)
+                .filter(i -> this.tasks.get(i).contains(keyword))
+                .map(i -> (i + 1) + ". " + this.tasks.get(i).toString())
+                .reduce("Here's the list of tasks that contain " + keyword + ":", (x, y) -> x + "\n" + y);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new FidoException(FidoException.ErrorType.NOT_VALID_INDEX);
+        }
+    }
+
+    private String markCommand(int idx) throws FidoException {
+        try {
+            Task newTask = this.tasks.get(idx).mark();
+            this.tasks.set(idx, newTask);
+            this.storage.writeToFile(Parser.parseToFile(this.tasks));
+            return "This task has been marked as done.\n"
+                + "  " + newTask;
+        } catch (IndexOutOfBoundsException e) {
+            throw new FidoException(FidoException.ErrorType.NOT_VALID_INDEX);
+        }
+    }
+
+    private String unmarkCommand(int idx) throws FidoException {
+        try {
+            Task newTask = this.tasks.get(idx).unmark();
+            this.tasks.set(idx, newTask);
+            this.storage.writeToFile(Parser.parseToFile(this.tasks));
+            return "This task has been unmarked.\n"
+                + "  " + newTask;
+        } catch (IndexOutOfBoundsException e) {
+            throw new FidoException(FidoException.ErrorType.NOT_VALID_INDEX);
+        }
+    }
+
+    private String deleteCommand(int idx) throws FidoException {
+        try {
+            Task deletedTask = this.tasks.remove(idx);
+            this.storage.writeToFile(Parser.parseToFile(this.tasks));
+            return "Following task has been removed:\n"
+                + "  " + deletedTask;
+        } catch (IndexOutOfBoundsException e) {
+            throw new FidoException(FidoException.ErrorType.NOT_VALID_INDEX);
+        }
+    }
+
+    private String rmdpCommand() throws FidoException {
+        // stream toList returns immutable list
+        this.tasks = new ArrayList<>(
+            this.tasks.stream().distinct().toList());
+        this.storage.writeToFile(Parser.parseToFile(this.tasks));
+        return "Removed duplicate.";
     }
 
     private String menu() {

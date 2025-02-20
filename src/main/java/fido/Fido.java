@@ -74,7 +74,7 @@ public class Fido {
     }
 
     /**
-     * The entry point of the chatbot.
+     * Represents entry point of the chatbot.
      * This method initialises a new {@code Fido} instance with a path to data file,
      * and then calls {@link #run()} to start the cahtbot.
      * If an {@link IOException} occurs, it is caught here, and an error message

@@ -45,6 +45,7 @@ public class Parser {
         return Arrays.asList(content.split("\n"))
                 .stream()
                 .map(line -> line.split(Parser.DIVIDER))
+                .filter(arr -> arr.length >= 3)
                 .map(arr -> arr[0].equals("T")
                         // If is a TODO task
                         ? (arr[1].equals("false") ? (new Todo(arr[2])) : (new Todo(arr[2]).mark()))
